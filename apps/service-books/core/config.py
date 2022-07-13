@@ -4,44 +4,33 @@ import os
 from pydantic import BaseSettings
 
 
-class Config(BaseSettings):
+class LocalConfig(BaseSettings):
     ENV: str = "development"
     DEBUG: bool = True
     APP_HOST: str = "0.0.0.0"
     APP_PORT: int = 8000
-    DB_URL: str = f"mysql+pymysql://fastapi:fastapi@localhost:3307/fastapi"
-    JWT_SECRET_KEY: str = "fastapi"
-    JWT_ALGORITHM: str = "HS256"
-    SENTRY_SDN: str = None
-    CELERY_BROKER_URL: str = "amqp://user:bitnami@localhost:5672/"
-    CELERY_BACKEND_URL: str = "redis://:password123@localhost:6379/0"
-    REDIS_HOST: str = "localhost"
-    REDIS_PORT: int = 6379
 
 
-class DevelopmentConfig(Config):
-    DB_URL: str = f"mysql+pymysql://root:fastapi@db:3307/fastapi"
-    REDIS_HOST: str = "localhost"
-    REDIS_PORT: int = 6379
+class DBConfig(BaseSettings):
+    DATABASE_PORT: int = 5432
+    DATABASE_SERVER: str = "books-db"
+    DATABASE_USER: str = "postgres"
+    DATABASE_PASSWORD: str = "postgres"
+    DATABASE_DB: str = "books-db"
 
 
-class LocalConfig(Config):
-    DB_URL: str = f"mysql+pymysql://fastapi:fastapi@localhost:3307/test"
-
-
-class ProductionConfig(Config):
-    DEBUG: str = False
-    DB_URL: str = f"mysql+pymysql://fastapi:fastapi@localhost:3307/prod"
+def get_db_url():
+    c = DBConfig()
+    return f"postgresql://{c.DATABASE_USER}:{c.DATABASE_PASSWORD}@{c.DATABASE_SERVER}:{c.DATABASE_PORT}/{c.DATABASE_DB}"
 
 
 def get_config():
     env = os.getenv("ENV", "local")
     config_type = {
-        # "development": DevelopmentConfig(),
         "local": LocalConfig(),
-        # "production": ProductionConfig(),
     }
     return config_type[env]
 
 
 config = get_config()
+database_url = get_db_url()

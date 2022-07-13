@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  books:
+    build:
+      context: ./apps/service-books/
+      dockerfile: Dockerfile
+#    command: "python main.py"
+    volumes:
+      - ./project:/usr/src/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - books-db
+
+  books-db:
+    image: postgres:13.4
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=books-db
