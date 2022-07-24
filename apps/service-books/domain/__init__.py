@@ -1,2 +1,2 @@
-from .author import Author
-from .book import Book
+from .authors import authors
+from .books import books

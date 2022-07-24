@@ -1,2 +1,1 @@
-from .db import Base
-from domain import Author, Book
+from domain import authors, books

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from api import router
-from core.db import Base, engine
+from core.db import metadata, engine
+from domain import authors, books
 
 
 class AppCreator:
@@ -14,7 +15,7 @@ class AppCreator:
         self._init_routers()
 
     def _init_db(self):
-        Base.metadata.create_all(bind=engine)
+        pass
 
     def _init_routers(self):
         self.app.include_router(router)
@@ -23,4 +24,6 @@ class AppCreator:
         return self.app
 
 
+metadata.create_all(bind=engine)
 app = AppCreator().get()
+

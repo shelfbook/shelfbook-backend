@@ -33,4 +33,4 @@ def get_config():
 
 
 config = get_config()
-database_url = get_db_url()
+DATABASE_URL = get_db_url()
