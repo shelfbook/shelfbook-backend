@@ -5,16 +5,20 @@ services:
     build:
       context: ./apps/service-books/
       dockerfile: Dockerfile
-#    command: "python main.py"
+    image: shelfbook-books
+    container_name: shelfbook-books
+    working_dir: /app/
     volumes:
-      - ./project:/usr/src/app
+      - ./apps/service-books/:/app/
     ports:
       - "8000:8000"
     depends_on:
       - books-db
+    restart: always
 
   books-db:
     image: postgres:13.4
+    container_name: shelfbook-books-db
     ports:
       - "5432:5432"
     environment:
