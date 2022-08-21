@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union
 
 from pydantic import BaseModel
 
@@ -6,5 +6,6 @@ from pydantic import BaseModel
 class BookSchema(BaseModel):
     id: int = None
     title: str
-    author: str = None
+    original_title: Optional[str]
+    author: Union[int, dict]
     year: int = 2001

@@ -1,6 +1,6 @@
 from typing import List
 from fastapi import APIRouter
-from schema.book import BookSchema
+from schema import BookSchema, ConfirmerSchema, BookCombineSchema
 
 
 router = APIRouter(
@@ -20,8 +20,10 @@ async def book_list():
     pass
 
 
-@router.post('')
-def create_book():
+@router.post(
+    '',
+)
+def create_book(book: BookSchema):
     return {
         "item_id": "item_id",
         "q": "q"
@@ -29,7 +31,7 @@ def create_book():
 
 
 @router.post("/{book_id}/confirmer")
-def book_confirmer(book_id: int):
+def book_confirmer(book_id: int, confirmer: ConfirmerSchema):
     return {
         "item_id": "item_id",
         "q": "q"
@@ -42,6 +44,6 @@ def update_book():
 
 
 @router.post("/combiner")
-def books_combiner():
+def books_combiner(combiner: BookCombinerSchema):
     """Combine books"""
     pass
