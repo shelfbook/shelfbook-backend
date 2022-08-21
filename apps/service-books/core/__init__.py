@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api import router
+from handlers import router
 from core.db import metadata, engine
 from domain import authors, books
 
