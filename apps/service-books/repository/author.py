@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
+
+from core.db import database
 from schema import AuthorSchema
+from domain import authors
 
 
 class AuthorRepository:
@@ -9,5 +12,6 @@ class AuthorRepository:
 
 class DBAuthorRepository(AuthorRepository):
     async def create(self, author: AuthorSchema):
-        print(author)
+        query = authors.insert().values(author.dict())
+        author_id = await database.execute(query)
         return author

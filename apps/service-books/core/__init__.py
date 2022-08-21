@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from handlers import router
-from core.db import metadata, engine
+from core.db import metadata, engine, database
 from domain import authors, books
 
 
@@ -26,4 +26,15 @@ class AppCreator:
 
 metadata.create_all(bind=engine)
 app = AppCreator().get()
+
+
+@app.on_event("startup")
+async def startup():
+    await database.connect()
+
+
+@app.on_event("shutdown")
+async def shutdown():
+    await database.disconnect()
+
 
