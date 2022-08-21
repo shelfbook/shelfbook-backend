@@ -1,6 +1,6 @@
 from typing import List
 from fastapi import APIRouter
-from schema import BookSchema, ConfirmerSchema, BookCombineSchema
+from schema import BookSchema, ConfirmerSchema, BookCombinerSchema
 
 
 router = APIRouter(

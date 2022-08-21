@@ -5,5 +5,5 @@ from .book import BookSchema
 
 
 class BookCombinerSchema(BaseModel):
-    ids = List[int]
+    ids: List[int]
     book: BookSchema

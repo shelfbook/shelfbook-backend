@@ -1,7 +1,7 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
 
-class BookRepository:
+class BookRepository(ABC):
     @abstractmethod
     async def get_all(self): ...
 
@@ -15,9 +15,9 @@ class BookRepository:
     async def delete(self, book_id): ...
 
 
-class MockBookRepository(BookRepository):
-    async def get_all(self):
-        return [
-            {"id": 1, "title": "Американская трагедия", "author": "Драйзер", "year": 2000},
-            {"id": 2, "title": "Война и мир", "author": "Толстой"}
-        ]
+# class MockBookRepository(BookRepository):
+#     async def get_all(self):
+#         return [
+#             {"id": 1, "title": "Американская трагедия", "author": "Драйзер", "year": 2000},
+#             {"id": 2, "title": "Война и мир", "author": "Толстой"}
+#         ]
