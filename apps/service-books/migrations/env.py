@@ -10,13 +10,13 @@ from alembic import context
 sys.path = ['.', '..'] + sys.path[1:]
 
 from core import config as my_config
-from core.base import Base
+from core.db import metadata
 
 config = context.config
 
 fileConfig(config.config_file_name)
 
-target_metadata = Base.metadata
+target_metadata = metadata
 
 
 def run_migrations_offline():
