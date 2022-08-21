@@ -1,8 +1,8 @@
 from repository import AuthorRepository, DBAuthorRepository
-from schema import AuthorSchema
+from schema import AuthorInSchema
 
 
-class CreateAuthorService:
+class BaseAuthorService:
     @classmethod
     def new(cls):
         return cls(DBAuthorRepository())
@@ -10,5 +10,13 @@ class CreateAuthorService:
     def __init__(self, repository: AuthorRepository):
         self.repository = repository
 
-    async def execute(self, author: AuthorSchema) -> AuthorSchema:
+
+class CreateAuthorService(BaseAuthorService):
+    async def execute(self, author: AuthorInSchema) -> AuthorInSchema:
         return await self.repository.create(author)
+
+
+class ListingAuthorService(BaseAuthorService):
+    async def execute(self):
+        return await self.repository.get_all()
+
